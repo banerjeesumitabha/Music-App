@@ -43,9 +43,8 @@ public class PlayingActivity extends AppCompatActivity {
 
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int volume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
-        if(volume<3)
-        {
-            Toast.makeText(this,"Please Increase Volume",Toast.LENGTH_SHORT).show();
+        if (volume < 3) {
+            Toast.makeText(this, "Please Increase Volume", Toast.LENGTH_SHORT).show();
         }
 
         int result = audio.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
@@ -81,9 +80,7 @@ public class PlayingActivity extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     Toast.makeText(PlayingActivity.this, "Song Completed", Toast.LENGTH_SHORT).show();
                     releaseMediaPlayer();
-                    Intent mainIntent = new Intent(PlayingActivity.this,MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(mainIntent);
+                    finish();
                 }
             });
         }
@@ -122,8 +119,8 @@ public class PlayingActivity extends AppCompatActivity {
     }
 
     public void forward(View view) {
-        if(song.getDuration()>song.getCurrentPosition()+10000)
-            song.seekTo(song.getCurrentPosition()+10000);
+        if (song.getDuration() > song.getCurrentPosition() + 10000)
+            song.seekTo(song.getCurrentPosition() + 10000);
         else
             song.seekTo(0);
     }
@@ -136,9 +133,8 @@ public class PlayingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(song!=null)
-        {
-            Toast.makeText(this,"Song Stopped",Toast.LENGTH_SHORT).show();
+        if (song != null) {
+            Toast.makeText(this, "Song Stopped", Toast.LENGTH_SHORT).show();
             releaseMediaPlayer();
         }
     }
